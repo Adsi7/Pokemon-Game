@@ -161,10 +161,6 @@ let checkWinner =(enemy, attacker)=>{
   if(enemy.health<=0){
     selectScreen.style.display="none"; 
     battleScreenEl.style.display="none"; 
-    winner(attacker);
-}
-}
-  let winner =attacker =>{
     document.getElementsByClassName("bild3")[0].setAttribute("src", "http://www.smogon.com/dex/media/sprites/xy/"+attacker.name+".gif")
     document.querySelector(".winn").textContent=attacker.name
     document.querySelector(".winn").style.color=attacker.color;
@@ -176,7 +172,10 @@ let checkWinner =(enemy, attacker)=>{
     },800)
     
   document.querySelector(".end-screen").classList.add("active");
-  }
+}
+}
+ 
+
 let play = (currentUserAttack, currentCpuAttack) =>{
   
   let currentPokemon= gameState.currentPokemon;

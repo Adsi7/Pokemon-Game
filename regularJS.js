@@ -43,8 +43,10 @@ let battleScreenEl= document.getElementById("battle-screen")
 let choosePokemon= document.getElementsByClassName("bild")[0];
 let choosePokemonCpu=document.getElementsByClassName("bild2")[0];
 let attackBtnsEl= document.querySelectorAll(".attack");
-let namePlayer=document.querySelector(".player").querySelector(".name")
-let nameCpu=document.querySelector(".cpu").querySelector(".name")
+let namePlayer=document.querySelector(".player").querySelector(".name");
+let nameCpu=document.querySelector(".cpu").querySelector(".name");
+let selectScreen = document.querySelector(".select-screen");
+let playAgain= document.querySelector(".play-again");
 //random nummer zwischen 1 und 3
 let random= ()=>{
   return Math.floor(Math.random()*3);
@@ -88,10 +90,6 @@ pokemonsEL.forEach(n=>{
     //szene wecheseln zu kamp
     battleScreenEl.classList.add("active");
     battleScreenEl.style.removeProperty("display");
-    userHp.style.width="100%" 
-    cpuHp.style.width="100%"; 
-    document.querySelector(".fight-btn").innerHTML="Fight"
- 
 
     
     console.log(gameState.pokemonCpu)
@@ -213,36 +211,39 @@ let play = (currentUserAttack, currentCpuAttack) =>{
          //Prüfen wer gewinnt
           case "water": 
            if(currentCpuAttack==="fire"){
-            //erst prüfen ob noch Leben vorhanden ist
+            //erst prüfen ob noch beide Leben vorhanden ist
             if(currentPokemon.health>=1 && currentRivalPokemon.health>=1){
               //gewinner verkünden
               document.querySelector(".fight-btn").innerHTML=" "+currentUserAttack +" vs " +currentCpuAttack +"<br>"+ "<p>"+currentPokemon.name+ " wins </p>";
-
+              //prüfen ob Computer noch lebt
              if(currentRivalPokemon.health>=1){
+               //Schaden an Verlierer
               attackMove(currentRivalPokemon.attack, currentRivalPokemon.level, 0.8,2, currentPokemon, currentRivalPokemon);}}
           }else{ 
             //erst prüfen ob noch Leben vorhanden ist
             if(currentPokemon.health>=1 && currentRivalPokemon.health>=1){
               //gewinner verkünden
               document.querySelector(".fight-btn").innerHTML=" "+currentUserAttack +" vs " +currentCpuAttack +"<br>"+ "<p>"+currentRivalPokemon.name+ " wins </p>";
-             console.log("computer wins");
-          
+             //prüfen ob Computer noch lebt
             if(currentRivalPokemon.health>=1){
+              //schaden an Verlierer
               attackMove(currentRivalPokemon.attack, currentRivalPokemon.level, 0.8,2, currentPokemon, currentRivalPokemon);}}}
           break;
               
+
+
           case "grass": 
            if(currentCpuAttack==="water"){
              if(currentPokemon.health>=1 && currentRivalPokemon.health>=1){
               document.querySelector(".fight-btn").innerHTML=" "+currentUserAttack +" vs " +currentCpuAttack +"<br>"+ "<p>"+currentPokemon.name+ " wins </p>";
-              console.log("Player wins");
+              
      
               if(currentRivalPokemon.health>=1){
                   attackMove(currentRivalPokemon.attack, currentRivalPokemon.level, 0.8,2, currentPokemon, currentRivalPokemon);}}
            }else{ 
                 if(currentPokemon.health>=1 && currentRivalPokemon.health>=1){
                   document.querySelector(".fight-btn").innerHTML=" "+currentUserAttack +" vs " +currentCpuAttack +"<br>"+ "<p>"+currentRivalPokemon.name+ " wins </p>";
-                 console.log("computer wins");
+                
               
                  if(currentRivalPokemon.health>=1){
                   attackMove(currentRivalPokemon.attack, currentRivalPokemon.level, 0.8,2, currentPokemon, currentRivalPokemon);}}}
@@ -251,7 +252,7 @@ let play = (currentUserAttack, currentCpuAttack) =>{
              if(currentCpuAttack==="grass"){
                if(currentPokemon.health>=1 && currentRivalPokemon.health>=1){
                 document.querySelector(".fight-btn").innerHTML=" "+currentUserAttack +" vs " +currentCpuAttack +"<br>"+ "<p>"+currentPokemon.name+ " wins </p>";
-                console.log("Player wins");
+                
           
                 if(currentRivalPokemon.health>=1){
                  attackMove(currentRivalPokemon.attack, currentRivalPokemon.level, 0.8,2, currentPokemon, currentRivalPokemon);
@@ -268,12 +269,12 @@ let play = (currentUserAttack, currentCpuAttack) =>{
 }
 }
 }
-
-document.querySelector(".play-again").addEventListener("click", ()=>{
- // document.querySelector(".end-screen").classList.remove("active");
-  document.querySelector(".select-screen").style.removeProperty("display"); 
-  //  battleScreenEl.style.removeProperty("display"); 
- 
+    //
+    playAgain.addEventListener("click", ()=>{
+      selectScreen.style.removeProperty("display"); 
+      userHp.style.width="100%" 
+      cpuHp.style.width="100%"; 
+      document.querySelector(".fight-btn").innerHTML="Fight"
 })
 
 

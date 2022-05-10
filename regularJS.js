@@ -1,7 +1,5 @@
-//database 0.20 * Math.sqrt(user[0].level)) * user[0].stamina) * 15
 
-
-const gameState={
+  const gameState={
   //aktuell Pokemonauswahl speichern
   pokemon:"",
   pokemonCpu :"",
@@ -150,13 +148,10 @@ let attackMove = (attack, level, stack, critical, enemy, attacker)=>{
   
    if(enemy.owner==="user"){
     let minus = ((enemy.health*100)/enemy.startHealth)
-    minus.toString();
      userHp.style.width=(minus<=0? 0: minus) +"%";
     //health weg visuel von owner
   }else { 
     let minus=((enemy.health*100)/enemy.startHealth);
- 
-    minus.toString();
     cpuHp.style.width=(minus<=0? 0:minus)+"%";
   }
   checkWinner(enemy, attacker);
@@ -269,7 +264,7 @@ let play = (currentUserAttack, currentCpuAttack) =>{
 }
 }
 }
-    //
+    //wenn nochmal gespielt werden soll : ausgangszustand wiederherstellen
     playAgain.addEventListener("click", ()=>{
       selectScreen.style.removeProperty("display"); 
       userHp.style.width="100%" 

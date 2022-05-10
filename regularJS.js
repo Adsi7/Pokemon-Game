@@ -159,29 +159,24 @@ let attackMove = (attack, level, stack, critical, enemy, attacker)=>{
 }
 let checkWinner =(enemy, attacker)=>{
   if(enemy.health<=0){
-    console.log(attacker);
-    console.log("hey Winnnerr"+attacker.name)
-    document.querySelector(".select-screen").style.display="none"; 
+    selectScreen.style.display="none"; 
     battleScreenEl.style.display="none"; 
-    
+    winner(attacker);
+}
+}
+  let winner =attacker =>{
     document.getElementsByClassName("bild3")[0].setAttribute("src", "http://www.smogon.com/dex/media/sprites/xy/"+attacker.name+".gif")
     document.querySelector(".winn").textContent=attacker.name
     document.querySelector(".winn").style.color=attacker.color;
-    document.querySelector(".play-again").style.background=attacker.color;
+    playAgain.style.background=attacker.color;
+    
     setInterval(()=>{
       let visibility= document.querySelector(".play-again span");
       visibility.style.visibility=(visibility.style.visibility==="hidden" ? "":"hidden");
     },800)
     
-   
-    
-    
   document.querySelector(".end-screen").classList.add("active");
- 
- 
-}
-}
-   
+  }
 let play = (currentUserAttack, currentCpuAttack) =>{
   
   let currentPokemon= gameState.currentPokemon;
@@ -193,27 +188,29 @@ let play = (currentUserAttack, currentCpuAttack) =>{
 
   //Erst wird geprüft ob die gleichen Attacken ausgewählt wurden
   if(currentUserAttack===currentCpuAttack){
-    if(currentPokemon.health>=1 && currentRivalPokemon.health>=1){
+   // if(currentPokemon.health>=1 && currentRivalPokemon.health>=1){
       document.querySelector(".fight-btn").innerHTML=" "+currentUserAttack +" vs " +currentCpuAttack +"<br> Draw";
-      console.log("draw both take damage");
+   
      // attackMove(currentPokemon.attack, currentPokemon.level, 0.8,1, currentRivalPokemon, currentPokemon);
-    if(currentRivalPokemon.health>=1){
+   //   if(currentRivalPokemon.health>=1){
   //   attackMove(currentRivalPokemon.attack, currentRivalPokemon.level, 0.8,1, currentPokemon);
-}}
-  }else{
+}
+   else{
     
         switch(currentUserAttack){
          //Prüfen wer gewinnt
           case "water": 
            if(currentCpuAttack==="fire"){
             //erst prüfen ob noch beide Leben vorhanden ist
+            console.log("wasser gegen Feuer");
+            
             if(currentPokemon.health>=1 && currentRivalPokemon.health>=1){
               //gewinner verkünden
               document.querySelector(".fight-btn").innerHTML=" "+currentUserAttack +" vs " +currentCpuAttack +"<br>"+ "<p>"+currentPokemon.name+ " wins </p>";
               //prüfen ob Computer noch lebt
              if(currentRivalPokemon.health>=1){
                //Schaden an Verlierer
-              attackMove(currentRivalPokemon.attack, currentRivalPokemon.level, 0.8,2, currentPokemon, currentRivalPokemon);}}
+              attackMove(currentPokemon.attack, currentPokemon.level, 0.8,2, currentRivalPokemon, currentPokemon);}}
           }else{ 
             //erst prüfen ob noch Leben vorhanden ist
             if(currentPokemon.health>=1 && currentRivalPokemon.health>=1){
@@ -231,10 +228,8 @@ let play = (currentUserAttack, currentCpuAttack) =>{
            if(currentCpuAttack==="water"){
              if(currentPokemon.health>=1 && currentRivalPokemon.health>=1){
               document.querySelector(".fight-btn").innerHTML=" "+currentUserAttack +" vs " +currentCpuAttack +"<br>"+ "<p>"+currentPokemon.name+ " wins </p>";
-              
-     
-              if(currentRivalPokemon.health>=1){
-                  attackMove(currentRivalPokemon.attack, currentRivalPokemon.level, 0.8,2, currentPokemon, currentRivalPokemon);}}
+               if(currentRivalPokemon.health>=1){
+                attackMove(currentPokemon.attack, currentPokemon.level, 0.8,2, currentRivalPokemon, currentPokemon);}}
            }else{ 
                 if(currentPokemon.health>=1 && currentRivalPokemon.health>=1){
                   document.querySelector(".fight-btn").innerHTML=" "+currentUserAttack +" vs " +currentCpuAttack +"<br>"+ "<p>"+currentRivalPokemon.name+ " wins </p>";
@@ -250,7 +245,7 @@ let play = (currentUserAttack, currentCpuAttack) =>{
                 
           
                 if(currentRivalPokemon.health>=1){
-                 attackMove(currentRivalPokemon.attack, currentRivalPokemon.level, 0.8,2, currentPokemon, currentRivalPokemon);
+                  attackMove(currentPokemon.attack, currentPokemon.level, 0.8,2, currentRivalPokemon, currentPokemon);
           }}}else {console.log("computer wins");
                  document.querySelector(".fight-btn").innerHTML=" "+currentUserAttack +" vs " +currentCpuAttack +"<br>"+ "<p>"+currentRivalPokemon.name+ " wins </p>";
                 if(currentPokemon.health>=1 && currentRivalPokemon.health>=1){

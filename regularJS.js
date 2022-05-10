@@ -217,8 +217,7 @@ let play = (currentUserAttack, currentCpuAttack) =>{
             if(currentPokemon.health>=1 && currentRivalPokemon.health>=1){
               //gewinner verkünden
               document.querySelector(".fight-btn").innerHTML=" "+currentUserAttack +" vs " +currentCpuAttack +"<br>"+ "<p>"+currentPokemon.name+ " wins </p>";
-             console.log("Player wins");
-          
+
              if(currentRivalPokemon.health>=1){
               attackMove(currentRivalPokemon.attack, currentRivalPokemon.level, 0.8,2, currentPokemon, currentRivalPokemon);}}
           }else{ 

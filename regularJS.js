@@ -11,7 +11,8 @@
       hp: 39,
       defense: 43,
       level: 1,
-      color: "#f04d26"
+      color: "#f04d26",
+      attackImg:"kindpng_946258.png"
     },
     {
       name: 'bulbasaur',
@@ -20,7 +21,8 @@
       defense:49,
       hp: 45,
       level: 1,
-      color:"green"
+      color:"green",
+      attackImg:"falling_lef.png"
     },
     {
       name: 'squirtle',
@@ -29,11 +31,13 @@
       hp:44,
       defense: 65,
       level: 1,
-      color:"blue"
+      color:"blue",
+      attackImg:"wasser.png"
     }
   ],
 }
-
+console.log(gameState)
+console.log(gameState.pokemons[0].attackImg)
 
 //elements und auswahl
 let pokemonsEL= document.querySelector(".select-screen").querySelectorAll(".character");
@@ -94,7 +98,11 @@ pokemonsEL.forEach(n=>{
     console.log(gameState.pokemon)
 
     // start leben von Player und Cpu
-   gameState.currentPokemon.startHealth=calculateInitHealth(gameState.currentPokemon);
+
+  gameState.currentPokemon.attackImg=gameState.pokemons[index(gameState.pokemon)].attackImg
+  gameState.currentRivalPokemon.attackImg=gameState.pokemons[index(gameState.pokemonCpu)].attackImg
+   
+  gameState.currentPokemon.startHealth=calculateInitHealth(gameState.currentPokemon);
    gameState.currentPokemon.health=calculateInitHealth(gameState.currentPokemon);
    gameState.currentRivalPokemon.startHealth=calculateInitHealth(gameState.currentRivalPokemon);
    gameState.currentRivalPokemon.health=calculateInitHealth(gameState.currentRivalPokemon);
@@ -175,17 +183,19 @@ let checkWinner =(enemy, attacker)=>{
 }
 }
 
-let animation =()=>{
-  let timeline= gsap.timeline();
-  timeline.to(".attack1",{ rotation:"-=25"})
-  timeline.set(".attack1", { attr: { src: "./img/kindpng_946258.png" }})
+let animation =(attacker)=>{
+  console.log("animation start"+attacker.attackImg)
+  let timeline= gsap.timeline({opacity:0});
+  timeline.to(".attack1",{ rotation:"-=25", opacity:1})
+  timeline.set(".attack1", { attr: { src: "./img/"+(attacker.attackImg) }})
  
-  timeline.to(".attack1",{x:550, delay:.3})
+  timeline.fromTo(".attack1",{x:0},{x:550, delay:.3})
  //  timeline.to(".attack1",{x:600,  opacity:.7})
    //timeline.to(".attack1",{x:625, opacity:.4})
    timeline.to(".attack1",{x:700, opacity:0})
    
 }
+
 
 let circle= document.getElementsByClassName("attack1")[0];
  
@@ -193,6 +203,8 @@ let circle= document.getElementsByClassName("attack1")[0];
 let play = (currentUserAttack, currentCpuAttack) =>{
   
   let currentPokemon= gameState.currentPokemon;
+  console.log(currentPokemon+"currentpokemon")
+  console.log(currentPokemon.attackImg)
   let currentRivalPokemon= gameState.currentRivalPokemon;
   currentPokemon.owner="user";
   currentRivalPokemon.owner="cpu";
@@ -225,7 +237,11 @@ let play = (currentUserAttack, currentCpuAttack) =>{
              if(currentRivalPokemon.health>=1){
               //attacken animation 
               //Schaden an Verlierer
-              attackMove(currentPokemon.attack, currentPokemon.level, 0.8,2, currentRivalPokemon, currentPokemon);}}
+              animation(currentPokemon)
+              setTimeout(function(){
+                attackMove(currentPokemon.attack, currentPokemon.level, 0.8,2, currentRivalPokemon, currentPokemon)
+              },1700)
+              ;}}
           }else{ 
             //erst prüfen ob noch Leben vorhanden ist
             if(currentPokemon.health>=1 && currentRivalPokemon.health>=1){
@@ -234,7 +250,12 @@ let play = (currentUserAttack, currentCpuAttack) =>{
              //prüfen ob Computer noch lebt
             if(currentRivalPokemon.health>=1){
               //schaden an Verlierer
-              attackMove(currentRivalPokemon.attack, currentRivalPokemon.level, 0.8,2, currentPokemon, currentRivalPokemon);}}}
+              animation(currentRivalPokemon)
+              setTimeout(function(){
+                attackMove(currentRivalPokemon.attack, currentRivalPokemon.level, 0.8,2, currentPokemon, currentRivalPokemon)
+              },1700)
+              break;
+             ;}}}
           break;
               
 
@@ -244,14 +265,23 @@ let play = (currentUserAttack, currentCpuAttack) =>{
              if(currentPokemon.health>=1 && currentRivalPokemon.health>=1){
               document.querySelector(".fight-btn").innerHTML=" "+currentUserAttack +" vs " +currentCpuAttack +"<br>"+ "<p>"+currentPokemon.name+ " wins </p>";
                if(currentRivalPokemon.health>=1){
-                attackMove(currentPokemon.attack, currentPokemon.level, 0.8,2, currentRivalPokemon, currentPokemon);}}
+                animation(currentPokemon)
+                setTimeout(function(){
+                  attackMove(currentPokemon.attack, currentPokemon.level, 0.8,2, currentRivalPokemon, currentPokemon)
+                },1700) }}
            }else{ 
                 if(currentPokemon.health>=1 && currentRivalPokemon.health>=1){
                   document.querySelector(".fight-btn").innerHTML=" "+currentUserAttack +" vs " +currentCpuAttack +"<br>"+ "<p>"+currentRivalPokemon.name+ " wins </p>";
                 
               
                  if(currentRivalPokemon.health>=1){
-                  attackMove(currentRivalPokemon.attack, currentRivalPokemon.level, 0.8,2, currentPokemon, currentRivalPokemon);}}}
+                  animation(currentRivalPokemon)
+                  setTimeout(function(){
+                    attackMove(currentRivalPokemon.attack, currentRivalPokemon.level, 0.8,2, currentPokemon, currentRivalPokemon)
+                  },1700)
+                 ;
+               
+                }}}
                 break;
        
        
@@ -262,7 +292,7 @@ let play = (currentUserAttack, currentCpuAttack) =>{
                 
           
                 if(currentRivalPokemon.health>=1){
-                  animation()
+                  animation(currentPokemon)
                  
                  setTimeout(function(){
                     attackMove(currentPokemon.attack, currentPokemon.level, 0.8,2, currentRivalPokemon, currentPokemon)
@@ -273,8 +303,10 @@ let play = (currentUserAttack, currentCpuAttack) =>{
 
                   if(currentRivalPokemon.health>=1){
                
-                    
-                   attackMove(currentRivalPokemon.attack, currentRivalPokemon.level, 0.8,2, currentPokemon, currentRivalPokemon);
+                    animation(currentRivalPokemon)
+                    setTimeout(function(){
+                      attackMove(currentRivalPokemon.attack, currentRivalPokemon.level, 0.8,2, currentPokemon, currentRivalPokemon)
+                    },1700)
           
             break;
             }}

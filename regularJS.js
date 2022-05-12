@@ -174,6 +174,20 @@ let checkWinner =(enemy, attacker)=>{
   document.querySelector(".end-screen").classList.add("active");
 }
 }
+
+let animation =()=>{
+  let timeline= gsap.timeline();
+  timeline.to(".attack1",{ rotation:"-=25"})
+  timeline.set(".attack1", { attr: { src: "./img/kindpng_946258.png" }})
+ 
+  timeline.to(".attack1",{x:550, delay:.3})
+ //  timeline.to(".attack1",{x:600,  opacity:.7})
+   //timeline.to(".attack1",{x:625, opacity:.4})
+   timeline.to(".attack1",{x:700, opacity:0})
+   
+}
+
+let circle= document.getElementsByClassName("attack1")[0];
  
 
 let play = (currentUserAttack, currentCpuAttack) =>{
@@ -184,6 +198,7 @@ let play = (currentUserAttack, currentCpuAttack) =>{
   currentRivalPokemon.owner="cpu";
   console.log(`Player: ${currentUserAttack} Computer: ${currentCpuAttack}`)
 
+  
 
   //Erst wird geprüft ob die gleichen Attacken ausgewählt wurden
   if(currentUserAttack===currentCpuAttack){
@@ -208,7 +223,8 @@ let play = (currentUserAttack, currentCpuAttack) =>{
               document.querySelector(".fight-btn").innerHTML=" "+currentUserAttack +" vs " +currentCpuAttack +"<br>"+ "<p>"+currentPokemon.name+ " wins </p>";
               //prüfen ob Computer noch lebt
              if(currentRivalPokemon.health>=1){
-               //Schaden an Verlierer
+              //attacken animation 
+              //Schaden an Verlierer
               attackMove(currentPokemon.attack, currentPokemon.level, 0.8,2, currentRivalPokemon, currentPokemon);}}
           }else{ 
             //erst prüfen ob noch Leben vorhanden ist
@@ -237,20 +253,29 @@ let play = (currentUserAttack, currentCpuAttack) =>{
                  if(currentRivalPokemon.health>=1){
                   attackMove(currentRivalPokemon.attack, currentRivalPokemon.level, 0.8,2, currentPokemon, currentRivalPokemon);}}}
                 break;
-           case "fire":
+       
+       
+             case "fire":
              if(currentCpuAttack==="grass"){
                if(currentPokemon.health>=1 && currentRivalPokemon.health>=1){
                 document.querySelector(".fight-btn").innerHTML=" "+currentUserAttack +" vs " +currentCpuAttack +"<br>"+ "<p>"+currentPokemon.name+ " wins </p>";
                 
           
                 if(currentRivalPokemon.health>=1){
-                  attackMove(currentPokemon.attack, currentPokemon.level, 0.8,2, currentRivalPokemon, currentPokemon);
+                  animation()
+                 
+                 setTimeout(function(){
+                    attackMove(currentPokemon.attack, currentPokemon.level, 0.8,2, currentRivalPokemon, currentPokemon)
+                  },1700)
           }}}else {console.log("computer wins");
                  document.querySelector(".fight-btn").innerHTML=" "+currentUserAttack +" vs " +currentCpuAttack +"<br>"+ "<p>"+currentRivalPokemon.name+ " wins </p>";
                 if(currentPokemon.health>=1 && currentRivalPokemon.health>=1){
-          
+
                   if(currentRivalPokemon.health>=1){
+               
+                    
                    attackMove(currentRivalPokemon.attack, currentRivalPokemon.level, 0.8,2, currentPokemon, currentRivalPokemon);
+          
             break;
             }}
 }

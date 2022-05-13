@@ -319,9 +319,9 @@ background: url(http://www.smogon.com/dex/media/sprites/xy/bulbasaur.gif) no-rep
 
 /* CPU ============================================================*/
 #battle-screen .cpu{
-  position: absolute;
+  position:absolute;
   bottom: 10%;
-  right: 20%;
+  right: 20% ;
 }
 
 #battle-screen .cpu .player2{
@@ -389,6 +389,7 @@ background: url(http://www.smogon.com/dex/media/sprites/xy/bulbasaur.gif) no-rep
 
 #battle-screen .cpu img{
   height: 200px;
+ 
 }
 
 
@@ -439,3 +440,4 @@ font-size: 60px;
   width: 100%;
   margin-top: 50px;
 }
+

@@ -192,44 +192,58 @@ let animation =(wert)=>{
   
   
   let img;
-  if(wert){
+  
   attack==="fire"? img="f.png" :attack==="grass" ? img="falling_lef.png":img="wasser.png";
+  let attacke =gameState.currentCpuAttack;
+  
+  let imgE;
+  attacke ==="fire"? imgE="f.png" :attacke==="grass" ? imgE="falling_lef.png":imgE="wasser.png";
   
   let timeline= gsap.timeline();
 
+  if(wert){
   timeline.set(".attack1", { attr: { src: "./img/"+(img) }})
  
-  timeline.fromTo(".attack1",{x:0,opacity:1},{x:550, delay:.3})
+  timeline.fromTo(".attack1",{x:-50,opacity:1},{x:550, delay:.3})
  //  timeline.to(".attack1",{x:600,  opacity:.7})
    //timeline.to(".attack1",{x:625, opacity:.4})
    timeline.to(".attack1",{x:700, opacity:0})
    timeline.set(".attack1", { attr:{src:"" }})
-  }
-  else{
+  
+  }/*  else{
+    console.log("bishier hat geklappt")
+    timeline.set(".attack1", { attr: { src: "./img/"+(imgE) }})
+ 
+    timeline.fromTo(".attack1",{x:-50,opacity:1},{x:550, delay:.3})
+   //  timeline.to(".attack1",{x:600,  opacity:.7})
+     //timeline.to(".attack1",{x:625, opacity:.4})
+     timeline.to(".attack1",{x:700, opacity:0})
+     timeline.set(".attack1", { attr:{src:"" }})
+    timeline.reverse(0)
+  } */
     
-    timeline.reverse();
-  }
-   
 }
  //umgekehrte Animation, falls gegener gewinnt
-/* let animationReverse = () =>{
-  let attacke =gameState.currentCpuAttack;
-  let imgE;
-  attacke ==="fire"? imgE="f.png" :attacke==="grass" ? imgE="falling_lef.png":imgE="wasser.png";
+  let animationReverse = () =>{
+ 
   let timeline= gsap.timeline();
+  let imgE;  let attacke =gameState.currentCpuAttack
+  attacke ==="fire"? imgE="f.png" :attacke==="grass" ? imgE="falling_lef.png":imgE="wasser.png";
+;
+  
 
  // 
- timeline.set(".attack2", {attr:{src:"./img/"+imgE}})
-  timeline.fromTo(".attack2",{x:0,opacity:1},{x:550, delay:.3})
+ timeline.set(".attack1", {attr:{src:"./img/"+imgE}})
+ timeline.fromTo(".attack1",{x:700,opacity:1},{x:550, delay:.3})
  //  timeline.to(".attack1",{x:600,  opacity:.7})
    //timeline.to(".attack1",{x:625, opacity:.4})
 
-   timeline.to(".attack2",{x:700, opacity:0})
-  timeline.set(".attack2", { attr:{src:"" }})
+   timeline.to(".attack1",{x:-50, opacity:0})
+  timeline.set(".attack1", { attr:{src:"" }})
    
 
-} */
-
+}  
+ 
 
 let circle= document.getElementsByClassName("attack1")[0];
  
@@ -291,7 +305,7 @@ let play = (currentUserAttack, currentCpuAttack) =>{
               //schaden an Verlierer
   
   //animation REverse statt normale            animation(currentRivalPokemon)
-          animation(false)
+          animation()
               setTimeout(function(){
                 attackMove(currentRivalPokemon.attack, currentRivalPokemon.level, 0.8,2, currentPokemon, currentRivalPokemon)
               },1700)

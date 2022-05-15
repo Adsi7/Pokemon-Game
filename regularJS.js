@@ -184,12 +184,12 @@ let checkWinner =(enemy, attacker)=>{
 }
 
 
-let animation =(wert)=>{
+let animation =()=>{
   
   let attack =gameState.currentUserAttack;
   let img;
   attack==="fire"? img="f.png" :attack==="grass" ? img="falling_lef.png":img="wasser.png";
-  if(!wert){
+  
   let timeline= gsap.timeline();
   timeline.set(".attack1", { attr: { src: "./img/"+(img) }})
   timeline.fromTo(".attack1",{x:-50,opacity:1},{x:550, delay:.3})
@@ -197,35 +197,6 @@ let animation =(wert)=>{
    //timeline.to(".attack1",{x:625, opacity:.4})
    timeline.to(".attack1",{x:700, opacity:0})
    timeline.set(".attack1", { attr:{src:"" }})
-  }
-  /*  else{
-    console.log("bishier hat geklappt")
-    timeline.set(".attack1", { attr: { src: "./img/"+(imgE) }})
- 
-    timeline.fromTo(".attack1",{x:-50,opacity:1},{x:550, delay:.3})
-   //  timeline.to(".attack1",{x:600,  opacity:.7})
-     //timeline.to(".attack1",{x:625, opacity:.4})
-     timeline.to(".attack1",{x:700, opacity:0})
-     timeline.set(".attack1", { attr:{src:"" }})
-    timeline.reverse(0)
-  } */
-  else {
-    let timeline= gsap.timeline();
-  timeline.set(".attack1", { attr: { src: "./img/"+(img) }})
-  timeline.fromTo(".attack1",{x:-50,opacity:1},{x:250, delay:.3})
-  timeline.to(".attack1",{x:300,  opacity:.5})
-   //timeline.to(".attack1",{x:625, opacity:.4})
- //  timeline.to(".attack1",{x:700, opacity:0})
-   timeline.set(".attack1", { attr:{src:"" }})
-   
-   let timeline2=gsap.timeline();
-   timeline2.set(".attack2", {attr:{src:"./img/"+img}})
- timeline2.fromTo(".attack2",{x:350,opacity:1},{x:100, delay:.3 })
-   timeline2.to(".attack2",{x:50,  opacity:.5})
-   //timeline.to(".attack1",{x:625, opacity:.4})
- //timeline.to(".attack2",{x:-50, opacity:0})
-  timeline2.set(".attack2", { attr:{src:"" }})
-  }
    
 }
  //umgekehrte Animation, falls gegener gewinnt
@@ -240,13 +211,30 @@ let animation =(wert)=>{
    //timeline.to(".attack1",{x:625, opacity:.4})
  timeline.to(".attack1",{x:-50, opacity:0})
   timeline.set(".attack1", { attr:{src:"" }})
-   
-
 }  
  
-let animationDraw =()=>{
-
+let animationDraw= ()=>{
+  let attack =gameState.currentUserAttack;
+  let img;
+  attack==="fire"? img="f.png" :attack==="grass" ? img="falling_lef.png":img="wasser.png";
+  
+  let timeline= gsap.timeline();
+  timeline.set(".attack1", { attr: { src: "./img/"+(img) }})
+  timeline.fromTo(".attack1",{x:-50,opacity:1},{x:250, delay:.3})
+  timeline.to(".attack1",{x:300,  opacity:.5})
+   //timeline.to(".attack1",{x:625, opacity:.4})
+ //  timeline.to(".attack1",{x:700, opacity:0})
+   timeline.set(".attack1", { attr:{src:"" }})
+   
+   let timeline2=gsap.timeline();
+   timeline2.set(".attack2", {attr:{src:"./img/"+img}})
+ timeline2.fromTo(".attack2",{x:350,opacity:1},{x:100, delay:.3 })
+   timeline2.to(".attack2",{x:50,  opacity:.5})
+   //timeline.to(".attack1",{x:625, opacity:.4})
+ //timeline.to(".attack2",{x:-50, opacity:0})
+  timeline2.set(".attack2", { attr:{src:"" }})
 }
+
 
 
  
@@ -269,7 +257,7 @@ let play = (currentUserAttack, currentCpuAttack) =>{
   if(currentUserAttack===currentCpuAttack){
    // if(currentPokemon.health>=1 && currentRivalPokemon.health>=1){
       document.querySelector(".fight-btn").innerHTML=" "+currentUserAttack +" vs " +currentCpuAttack +"<br> Draw";
-    animation(true)
+    animationDraw();
      // attackMove(currentPokemon.attack, currentPokemon.level, 0.8,1, currentRivalPokemon, currentPokemon);
    //   if(currentRivalPokemon.health>=1){
   //   attackMove(currentRivalPokemon.attack, currentRivalPokemon.level, 0.8,1, currentPokemon);

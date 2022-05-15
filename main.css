@@ -238,6 +238,15 @@ background: url(http://www.smogon.com/dex/media/sprites/xy/bulbasaur.gif) no-rep
   margin-bottom: 5px;
 }
 
+.rock:hover{
+  animation: blink 1.5s linear infinite;
+}
+.paper:hover{
+  animation: blink 1.5s linear infinite;
+}
+.scissors:hover{
+  animation: blink 1.5s linear infinite;
+}
 
 /* PLAYERS ============================================================*/
 #battle-screen .player{
@@ -441,3 +450,9 @@ font-size: 60px;
   margin-top: 50px;
 }
 
+
+@keyframes blink{
+  50%{ opacity: 0.3;}
+  650%{ opacity: .7;}
+  /* 90%{ opacity: 1;} */
+}

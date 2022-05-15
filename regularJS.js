@@ -98,8 +98,7 @@ pokemonsEL.forEach(n=>{
     console.log(gameState.pokemon)
 
     // start leben von Player und Cpu
-
-
+   
 
 
    
@@ -188,29 +187,18 @@ let checkWinner =(enemy, attacker)=>{
 let animation =(wert)=>{
   
   let attack =gameState.currentUserAttack;
-  
-  
-  
   let img;
-  
   attack==="fire"? img="f.png" :attack==="grass" ? img="falling_lef.png":img="wasser.png";
-  let attacke =gameState.currentCpuAttack;
-  
-  let imgE;
-  attacke ==="fire"? imgE="f.png" :attacke==="grass" ? imgE="falling_lef.png":imgE="wasser.png";
   
   let timeline= gsap.timeline();
-
-  if(wert){
   timeline.set(".attack1", { attr: { src: "./img/"+(img) }})
- 
   timeline.fromTo(".attack1",{x:-50,opacity:1},{x:550, delay:.3})
  //  timeline.to(".attack1",{x:600,  opacity:.7})
    //timeline.to(".attack1",{x:625, opacity:.4})
    timeline.to(".attack1",{x:700, opacity:0})
    timeline.set(".attack1", { attr:{src:"" }})
   
-  }/*  else{
+  /*  else{
     console.log("bishier hat geklappt")
     timeline.set(".attack1", { attr: { src: "./img/"+(imgE) }})
  
@@ -229,34 +217,26 @@ let animation =(wert)=>{
   let timeline= gsap.timeline();
   let imgE;  let attacke =gameState.currentCpuAttack
   attacke ==="fire"? imgE="f.png" :attacke==="grass" ? imgE="falling_lef.png":imgE="wasser.png";
-;
-  
-
- // 
  timeline.set(".attack1", {attr:{src:"./img/"+imgE}})
  timeline.fromTo(".attack1",{x:700,opacity:1},{x:550, delay:.3})
  //  timeline.to(".attack1",{x:600,  opacity:.7})
    //timeline.to(".attack1",{x:625, opacity:.4})
-
-   timeline.to(".attack1",{x:-50, opacity:0})
+ timeline.to(".attack1",{x:-50, opacity:0})
   timeline.set(".attack1", { attr:{src:"" }})
    
 
 }  
  
 
-let circle= document.getElementsByClassName("attack1")[0];
+
  
 
 let play = (currentUserAttack, currentCpuAttack) =>{
   
   let currentPokemon= gameState.currentPokemon;
-  console.log(currentPokemon.type+"currentpokemon")
-  console.log(currentPokemon.attackImg)
   
-  console.log(currentPokemon+"currenpok")
   let currentRivalPokemon= gameState.currentRivalPokemon;
-  console.log(currentRivalPokemon+"rivalpok")
+
 
   
   currentPokemon.owner="user";
@@ -290,7 +270,7 @@ let play = (currentUserAttack, currentCpuAttack) =>{
              if(currentRivalPokemon.health>=1){
               //attacken animation 
               //Schaden an Verlierer
-              animation(true);
+              animation();
               setTimeout(function(){
                 attackMove(currentPokemon.attack, currentPokemon.level, 0.8,2, currentRivalPokemon, currentPokemon)
               },1700)
@@ -305,7 +285,7 @@ let play = (currentUserAttack, currentCpuAttack) =>{
               //schaden an Verlierer
   
   //animation REverse statt normale            animation(currentRivalPokemon)
-          animation()
+          animationReverse()
               setTimeout(function(){
                 attackMove(currentRivalPokemon.attack, currentRivalPokemon.level, 0.8,2, currentPokemon, currentRivalPokemon)
               },1700)

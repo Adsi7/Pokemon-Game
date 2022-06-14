@@ -40,7 +40,7 @@ console.log(gameState)
 console.log(gameState.pokemons[0].attackImg)
 
 //elements und auswahl
-let pokemonsEL= document.querySelector(".select-screen").querySelectorAll(".character");
+let pokemonsEL= document.querySelectorAll(".character");
 let battleScreenEl= document.getElementById("battle-screen")
 let choosePokemon= document.getElementsByClassName("bild")[0];
 let choosePokemonCpu=document.getElementsByClassName("bild2")[0];

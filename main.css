@@ -7,13 +7,14 @@
   box-sizing: border-box;
 }
 body{
-    height: 100vh;
+    max-height: 100vh !important;
     width: 100%;
     overflow: hidden;
     padding: 0;
     margin: 0;
+
     
-font-family: 'Bangers', cursive;
+font-family: 'Bangers', "cursive";
 /* font-family: 'Cabin Sketch', cursive;
 font-family: 'Freckle Face', cursive;
 font-family: 'Press Start 2P', cursive; */
